@@ -15,7 +15,7 @@ export default function Post({
     <div className="post">
       <Link to={`/post/${_id}`}>
         <div className="image">
-          <img src={`http://localhost:3001/${cover}`} alt="Thumbnail of post" />
+          <img src={`https://blogserver-two.vercel.app/${cover}`} alt="Thumbnail of post" />
         </div>
       </Link>{" "}
       <div className="content">
