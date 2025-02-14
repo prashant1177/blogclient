@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { UserContext } from "./UserContext";
 
@@ -6,7 +6,7 @@ import { UserContext } from "./UserContext";
 export default function Header() {
   const {setUserInfo,userInfo} = useContext(UserContext);
   useEffect(() => {
-    fetch("https://blogserver-two.vercel.app/profile", {
+    fetch("http://localhost:3001/profile", {
       credentials: "include",
     }).then((response) => {
       response.json().then((userInfo) => {
@@ -14,14 +14,15 @@ export default function Header() {
       });
     });
   }, []);
+
   const username = userInfo?.username;
-  async function logout(){
-    await fetch("https://blogserver-two.vercel.app/logout", {
-        credentials: "include",
-        method: 'POST'
-      });
-      setUserInfo(null);
-    }
+ async function logout(){
+  await fetch("http://localhost:3001/logout", {
+      credentials: "include",
+      method: 'POST'
+    });
+    setUserInfo(null);
+  }
   return (
     <header>
       

@@ -49,6 +49,7 @@ export default function CreatePost() {
     data.set("summary", summary);
     data.set("content", content);
     data.set("cover", cover);
+    data.set("token", userInfo);
    // Debugging: Log FormData content
   for (let [key, value] of data.entries()) {
     console.log(`${key}:`, value);
