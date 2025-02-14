@@ -2,6 +2,8 @@ import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import { useState } from "react";
 import { Navigate } from "react-router-dom";
+import { useContext } from "react";
+import { UserContext } from "../UserContext";  // Import your context
 
 const modules = {
   toolbar: [
@@ -33,10 +35,11 @@ const formats = [
 ];
 
 export default function CreatePost() {
+  const { userInfo } = useContext(UserContext); 
   const [title, setTitle] = useState("");
   const [summary, setSummary] = useState("");
   const [content, setContent] = useState("");
-  const [files, setFiles] = useState(null);
+  const [cover, setCover] = useState("");
   const [redirect, setRedirect] = useState(false);
 
   async function createNewPost(ev) {
@@ -45,12 +48,25 @@ export default function CreatePost() {
     data.set("title", title);
     data.set("summary", summary);
     data.set("content", content);
-    data.set("file", files[0]);
-    const response = await fetch("https://blogserver-two.vercel.app/post", {
-      method: "POST",
-      body: data,
-      credentials:'include'
-    });
+    data.set("cover", cover);
+   // Debugging: Log FormData content
+  for (let [key, value] of data.entries()) {
+    console.log(`${key}:`, value);
+  }
+  if (!userInfo || !userInfo.token) {
+    console.error("No token found! User must be logged in.");
+    return;
+  }
+
+  const response = await fetch("https://blogserver-two.vercel.app/post", {
+    method: "POST",
+    body: data,
+    credentials: "include",
+    headers: {
+      "Authorization": `Bearer ${userInfo.token}`, // Get token from context
+    },
+  });
+    console.log(response);
     if (response) {
       setRedirect(true);
     }
@@ -74,7 +90,13 @@ export default function CreatePost() {
           value={summary}
           onChange={(ev) => setSummary(ev.target.value)}
         />
-        <input type="file" onChange={(ev) => setFiles(ev.target.files)} />
+        <input
+          type="text"
+          placeholder={"Enter image link"}
+          value={cover}
+          onChange={(ev) => setCover(ev.target.value)}
+        />
+        
         <ReactQuill
           value={content}
           onChange={(newValue) => setContent(newValue)}

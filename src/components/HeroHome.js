@@ -2,7 +2,7 @@ import { format } from "date-fns";
 import { useState } from "react";
 import { Link, useParams } from "react-router-dom";
 
-export default function Post({
+export default function HeroHome({
   _id,
   title,
   summary,
@@ -12,18 +12,16 @@ export default function Post({
   author,
 }) {
   return (
-    <div className="post">
-      <Link to={`/post/${_id}`} className="post-link">
+    <div className="top-post">
+      <Link to={`/post/${_id}`} className="top-post-link">
         <div
-          className="image"
-          style={{
-            backgroundImage: `url(${cover})`,
-          }}
-        ></div>
+          className="top-image"
+          style={{ backgroundImage: `url(${cover})` }}
+        > 
+          <h2 className="top-post-title">{title}</h2>
+        </div>
       </Link>
-      <div className="content">
-        {" "}
-        <h2 className="post-title">{title}</h2>
+      {/* <div className="content">
         <p className="info">
           <a href="/" className="author">
             {author.username}
@@ -31,7 +29,7 @@ export default function Post({
           <time>{format(new Date(createdAt), "yyyy-MM-dd")}</time>
         </p>
         <p className="summary">{summary}</p>
-      </div>
+      </div> */}
     </div>
   );
 }

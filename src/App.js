@@ -8,6 +8,10 @@ import {UserContextProvider} from "./UserContext";
 import CreatePost from "./pages/CreatePost";
 import PostPage from "./pages/PostPage";
 import EditPost from "./pages/EditPost";
+import BlogPage from "./pages/BlogPage";
+import BooksPage from "./pages/BooksPage";
+import AboutPage from "./pages/AboutPage";
+import TeachersPage from "./pages/TeachersPage";
 
 function App() {
   return (
@@ -15,6 +19,10 @@ function App() {
     <Routes>
       <Route path="/" element={<Layout />}>
         <Route index element={<IndexPage />} />
+        <Route path="/blog" element={<BlogPage/>} />
+        <Route path="/books" element={<BooksPage/>} />
+        <Route path="/about" element={<AboutPage/>} />
+        <Route path="/teachers" element={<TeachersPage/>} />
         <Route path="/login" element={<LoginPage/>} />
         <Route path="/register" element={<RegisterPage/>} />
         <Route path="/create" element={<CreatePost/>} />
